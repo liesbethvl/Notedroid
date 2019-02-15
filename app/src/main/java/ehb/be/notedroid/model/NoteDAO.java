@@ -18,4 +18,8 @@ public class NoteDAO {
         noteList.add(newNote);
     }
 
+    public ArrayList<Note> getNoteList (){
+        return noteList;
+    }
+
 }
