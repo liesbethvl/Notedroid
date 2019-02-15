@@ -42,6 +42,7 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.NoteViewHolder
     @Override
     public void onBindViewHolder(@NonNull NoteViewHolder noteViewHolder, int i) {
         Note noteForRow = noteList.get(i);
+        //hier dateformatter insteken
         noteViewHolder.tvDate.setText(noteForRow.getDateCreated().toString());
         noteViewHolder.tvTitle.setText(noteForRow.getTitle());
     }
