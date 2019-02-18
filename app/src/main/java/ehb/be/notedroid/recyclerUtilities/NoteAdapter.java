@@ -8,7 +8,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Locale;
 
 import ehb.be.notedroid.R;
 import ehb.be.notedroid.model.Note;
@@ -42,8 +44,11 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.NoteViewHolder
     @Override
     public void onBindViewHolder(@NonNull NoteViewHolder noteViewHolder, int i) {
         Note noteForRow = noteList.get(i);
-        //hier dateformatter insteken
-        noteViewHolder.tvDate.setText(noteForRow.getDateCreated().toString());
+
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy hh:mm", Locale.getDefault());
+        String dateAsText = sdf.format(noteForRow.getDateCreated());
+
+        noteViewHolder.tvDate.setText(dateAsText);
         noteViewHolder.tvTitle.setText(noteForRow.getTitle());
     }
 

@@ -9,16 +9,18 @@ public class Note implements Serializable {
     private String title, content;
     private Date dateCreated, dateModified;
     private int id;
+    private static int counter=0;
 
     public Note() {
     }
 
-    public Note(String title, String content, Date dateCreated, Date dateModified, int id) {
+    public Note(String title, String content, Date dateCreated, Date dateModified) {
         this.title = title;
         this.content = content;
         this.dateCreated = dateCreated;
         this.dateModified = dateModified;
-        this.id = id;
+        counter++;
+        this.id = counter;
     }
 
     public int getId() {
@@ -69,5 +71,5 @@ public class Note implements Serializable {
         return id == note.id;
     }
 
-    
+
 }

@@ -21,6 +21,8 @@ public class AddActivity extends AppCompatActivity {
     private EditText etTitle, etContent;
     private Button saveButton;
 
+    Note passedNote;
+
     public View.OnClickListener saveListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
@@ -29,8 +31,19 @@ public class AddActivity extends AppCompatActivity {
             Date dateCreated = new Date();
             Date dateModified = new Date();
 
-            Note newNote = new Note(title, content,dateCreated, dateModified );
-            NoteDAO.getInstance().noteList.add(newNote);
+            if (passedNote == null){
+                Note newNote = new Note(title, content,dateCreated, dateModified);
+                NoteDAO.getInstance().noteList.add(newNote);
+            } else {
+                int id = passedNote.getId();
+                for (Note loopNote : NoteDAO.getInstance().getNoteList()) {
+                    if (id == loopNote.getId()){
+                        loopNote.setTitle(title);
+                        loopNote.setContent(content);
+                        loopNote.setDateCreated(dateCreated);
+                    }
+                }
+            }
 
             Intent intent = new Intent(getApplicationContext(), MainActivity.class);
             intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
@@ -57,8 +70,8 @@ public class AddActivity extends AppCompatActivity {
         saveButton = findViewById(R.id.btn_save);
 
         saveButton.setOnClickListener(saveListener);
+        passedNote = (Note) getIntent().getSerializableExtra("note");
 
-        Note passedNote = (Note) getIntent().getSerializableExtra("note");
         if(passedNote != null){
             etTitle.setText(passedNote.getTitle());
             etContent.setText(passedNote.getContent());
