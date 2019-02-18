@@ -58,7 +58,11 @@ public class AddActivity extends AppCompatActivity {
 
         saveButton.setOnClickListener(saveListener);
 
-
+        Note passedNote = (Note) getIntent().getSerializableExtra("note");
+        if(passedNote != null){
+            etTitle.setText(passedNote.getTitle());
+            etContent.setText(passedNote.getContent());
+        }
 
 
 
