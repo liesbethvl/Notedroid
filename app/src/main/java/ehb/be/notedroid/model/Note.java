@@ -19,8 +19,9 @@ public class Note implements Serializable {
         this.content = content;
         this.dateCreated = dateCreated;
         this.dateModified = dateModified;
-        counter++;
+
         this.id = counter;
+        counter++;
     }
 
     public int getId() {

@@ -9,6 +9,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.SearchView;
 
 import ehb.be.notedroid.model.Note;
@@ -20,6 +21,8 @@ public class MainActivity extends AppCompatActivity {
 
     private RecyclerView rvNotes;
     private NoteAdapter adapter;
+    private Button editButton;
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -53,6 +56,7 @@ public class MainActivity extends AppCompatActivity {
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
         rvNotes.setLayoutManager(layoutManager);
 
+
         rvNotes.addOnItemTouchListener(new RecyclerTouchListener(this, new RecyclerTouchListener.ClickListener() {
             @Override
             public void onClick(View view, int position) {
@@ -62,12 +66,9 @@ public class MainActivity extends AppCompatActivity {
 
                 intent.putExtra("note", selectedNote);
                 startActivity(intent);
-                /*
-                Log.i("TEST", MopDAO.getInstance().getMoppenLijst().get(position).getMop());
-                MopAdapter.MopViewHolder verwijzing = (MopAdapter.MopViewHolder) view.getTag();
-                verwijzing.tvClou.setVisibility(View.VISIBLE);
-                */
+
             }
         }));
+
     }
 }

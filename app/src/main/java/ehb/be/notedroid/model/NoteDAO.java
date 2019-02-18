@@ -18,6 +18,11 @@ public class NoteDAO {
         noteList.add(newNote);
     }
 
+    public void removeNote (int id) {
+        Note noteToBeRemoved = noteList.get(id);
+        noteList.remove(noteToBeRemoved);
+    }
+
     public ArrayList<Note> getNoteList (){
         return noteList;
     }

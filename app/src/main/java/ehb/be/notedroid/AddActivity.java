@@ -20,6 +20,7 @@ public class AddActivity extends AppCompatActivity {
     private TextView tvTitle, tvContent;
     private EditText etTitle, etContent;
     private Button saveButton;
+    private Button deleteButton;
 
     Note passedNote;
 
@@ -52,6 +53,30 @@ public class AddActivity extends AppCompatActivity {
         }
     };
 
+    public View.OnClickListener deleteListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+
+            if (passedNote != null) {
+                int id = passedNote.getId();
+                Note noteToRemove = null;
+                for (Note loopNote : NoteDAO.getInstance().getNoteList()) {
+                    if (id == loopNote.getId()) {
+                        noteToRemove =loopNote;
+
+                        break;
+                    }
+                }
+                NoteDAO.getInstance().noteList.remove(noteToRemove);
+            }
+
+            Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(intent);
+        }
+    };
+
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu, menu);
@@ -68,14 +93,20 @@ public class AddActivity extends AppCompatActivity {
         etTitle = findViewById(R.id.et_title);
         etContent = findViewById(R.id.et_content);
         saveButton = findViewById(R.id.btn_save);
+        deleteButton = findViewById(R.id.btn_delete);
 
+        deleteButton.setOnClickListener(deleteListener);
         saveButton.setOnClickListener(saveListener);
         passedNote = (Note) getIntent().getSerializableExtra("note");
 
         if(passedNote != null){
             etTitle.setText(passedNote.getTitle());
             etContent.setText(passedNote.getContent());
+            deleteButton.setText("Delete");
+        } else {
+            deleteButton.setText("Cancel");
         }
+
 
 
 
